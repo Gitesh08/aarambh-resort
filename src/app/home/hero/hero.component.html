@@ -1,0 +1,43 @@
+<section class="hero-section" #heroSection>
+  <!-- Background Image — GSAP zooms this -->
+  <div class="hero-bg">
+    <img #heroImg src="hero.JPG" alt="Aarambh Resort — Kelwa Beach, Palghar" loading="eager">
+    <div class="hero-gradient"></div>
+  </div>
+
+  <!-- Pinned Content Overlay -->
+  <div class="container hero-content">
+    <div class="hero-text">
+
+      <!-- Step 1: Title — visible from start -->
+      <div #heroTitle class="hero-title-wrap">
+        <h1 class="hero-title">
+          <span class="word-wrap"><span class="word">Where</span></span>
+          <span class="word-wrap"><span class="word">Time</span></span>
+          <span class="word-wrap"><span class="word">Slows</span></span>
+          <span class="word-wrap"><span class="word">Down.</span></span>
+        </h1>
+      </div>
+
+      <!-- Step 2: Subtitle — revealed on first scroll -->
+      <div #heroSubtitle class="hero-subtitle-wrap">
+        <p class="hero-subtitle">Step away from the city rush. A place to pause, breathe, and simply be.</p>
+      </div>
+
+      <!-- Step 3: Button — revealed on second scroll -->
+      <div #heroBtn class="hero-btn-wrap">
+        <button class="btn btn-primary hero-btn" (click)="bookRoom()">Book Now</button>
+      </div>
+
+    </div>
+
+    <!-- Scroll Indicator (Absolute positioned so it doesn't push title up) -->
+    <div #scrollArrow class="scroll-arrow-wrap">
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+
+  </div>
+</section>

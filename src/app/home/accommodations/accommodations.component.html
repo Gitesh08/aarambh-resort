@@ -1,0 +1,82 @@
+<section class="accommodations-section" id="accommodations">
+  <div class="container">
+    <div class="section-header accommodations-header" appScrollReveal>
+      <div class="reveal-wrap delay-1"><h2 class="editorial-heading reveal-text">Rooms & Suites</h2></div>
+      <div class="reveal-wrap delay-2" style="display: block;"><p class="editorial-sub reveal-text">Discover our premium accommodations.</p></div>
+    </div>
+
+    <div class="luxury-rooms">
+      <div class="luxury-room-card fade-up" *ngFor="let room of rooms; let i = index" [class.reverse]="i % 2 !== 0" appScrollReveal>
+        <div class="room-carousel-wrapper">
+          <img [src]="room.images[room.currentImageIndex]" [alt]="room.name" class="room-image" loading="eager">
+          
+          <!-- Maximize Icon -->
+          <button class="carousel-btn maximize" (click)="openLightbox(room, $event)" aria-label="View fullscreen">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+
+          <!-- Carousel Controls -->
+          <button class="carousel-btn prev" (click)="prevImage(room, $event)" aria-label="Previous image">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn next" (click)="nextImage(room, $event)" aria-label="Next image">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          
+          <!-- Carousel Indicators -->
+          <div class="carousel-indicators">
+            <span *ngFor="let img of room.images; let imgIdx = index" 
+                  class="indicator" 
+                  [class.active]="imgIdx === room.currentImageIndex"
+                  (click)="room.currentImageIndex = imgIdx; $event.stopPropagation()">
+            </span>
+          </div>
+        </div>
+        <div class="room-details">
+          <h3>{{ room.name }}</h3>
+          <p class="room-desc">{{ room.description }}</p>
+          
+          <ul class="room-amenities">
+            <li *ngIf="room.sqft"><i class="fa-solid fa-vector-square"></i> {{ room.sqft }}</li>
+            <li *ngIf="room.facing"><i class="fa-regular fa-compass"></i> {{ room.facing }}</li>
+            <li><i class="fa-solid fa-user-group"></i> Up to {{ room.capacity }} Guests</li>
+            <li><i class="fa-solid fa-snowflake"></i> AC & Attached Bath</li>
+            <li *ngIf="room.poolView"><i class="fa-solid fa-water-ladder"></i> Pool View</li>
+          </ul>
+          
+          <div class="room-price-book">
+            <div class="price">Starting from <span>{{ room.price }}</span> / Night</div>
+            <button class="btn btn-primary" (click)="bookRoom(room)">Reserve Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" [class.active]="isLightboxOpen">
+  <div class="lightbox-header">
+    <button class="btn-close" (click)="closeLightbox()" aria-label="Close fullscreen">&times;</button>
+  </div>
+  
+  <div class="lightbox-content">
+    <button class="carousel-btn prev lightbox-btn" *ngIf="activeLightboxImages.length > 1" (click)="prevLightboxImage($event)" aria-label="Previous image">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    
+    <img *ngIf="activeLightboxImages.length > 0" [src]="activeLightboxImages[activeLightboxIndex]" alt="Fullscreen room image" class="lightbox-image">
+    
+    <button class="carousel-btn next lightbox-btn" *ngIf="activeLightboxImages.length > 1" (click)="nextLightboxImage($event)" aria-label="Next image">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+  
+  <div class="lightbox-indicators" *ngIf="activeLightboxImages.length > 1">
+    <span *ngFor="let img of activeLightboxImages; let idx = index" 
+          class="indicator" 
+          [class.active]="idx === activeLightboxIndex"
+          (click)="activeLightboxIndex = idx; $event.stopPropagation()">
+    </span>
+  </div>
+</div>

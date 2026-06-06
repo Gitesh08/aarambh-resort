@@ -1,0 +1,81 @@
+<div class="modal-overlay" [class.open]="isOpen()" (click)="closeOnBackdrop()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2>Book Your Experience</h2>
+      <button class="btn-close" (click)="closeModal()" aria-label="Close modal">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="step-indicator">
+        <div class="step" [class.active]="currentStep() === 1" [class.completed]="currentStep() > 1">1</div>
+        <div class="step" [class.active]="currentStep() === 2" [class.completed]="currentStep() > 2">2</div>
+        <div class="step" [class.active]="currentStep() === 3" [class.completed]="currentStep() > 3">3</div>
+      </div>
+
+      <form (ngSubmit)="submitBooking()">
+        
+        <!-- Step 1: Dates -->
+        <div class="form-step" [class.active]="currentStep() === 1">
+          <h3 style="margin-bottom: var(--space-md);">Stay Details</h3>
+          <div class="form-group">
+            <label for="modal-checkIn">Check-in</label>
+            <input type="date" id="modal-checkIn" class="form-control" [(ngModel)]="localData.checkIn" name="checkIn" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-checkOut">Check-out</label>
+            <input type="date" id="modal-checkOut" class="form-control" [(ngModel)]="localData.checkOut" name="checkOut" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-guests">Guests</label>
+            <input type="number" id="modal-guests" class="form-control" min="1" [(ngModel)]="localData.guests" name="guests" required>
+          </div>
+        </div>
+
+        <!-- Step 2: Room Type -->
+        <div class="form-step" [class.active]="currentStep() === 2">
+          <h3 style="margin-bottom: var(--space-md);">Select Room</h3>
+          <div class="room-options">
+            <div class="room-card" [class.selected]="localData.roomType === 'standard'" (click)="selectRoom('standard')">
+              <h4>Standard Room</h4>
+              <p>Cozy & Minimal</p>
+            </div>
+            <div class="room-card" [class.selected]="localData.roomType === 'deluxe'" (click)="selectRoom('deluxe')">
+              <h4>Deluxe Suite</h4>
+              <p>Ocean View</p>
+            </div>
+            <div class="room-card" [class.selected]="localData.roomType === 'villa'" (click)="selectRoom('villa')">
+              <h4>Private Villa</h4>
+              <p>Ultimate Luxury</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact Info -->
+        <div class="form-step" [class.active]="currentStep() === 3">
+          <h3 style="margin-bottom: var(--space-md);">Your Details</h3>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="localData.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" [(ngModel)]="localData.email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" class="form-control" [(ngModel)]="localData.phone" name="phone" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn" *ngIf="currentStep() > 1" (click)="prevStep()">Back</button>
+          <div style="flex-grow: 1;"></div>
+          <button type="button" class="btn btn-primary" *ngIf="currentStep() < 3" (click)="nextStep()">Next Step</button>
+          <button type="submit" class="btn btn-primary" *ngIf="currentStep() === 3">Submit Inquiry</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

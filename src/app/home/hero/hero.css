@@ -1,0 +1,235 @@
+/* ══════════════════════════════════
+   HERO SECTION
+══════════════════════════════════ */
+
+/* The section itself is just a container —
+   GSAP ScrollTrigger controls pinning, so no explicit height needed here */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch; /* Allows content to take full height */
+}
+
+/* ── Background Image Container ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden; /* Clips the zooming image cleanly to section bounds */
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── Layered Gradient Overlay ──
+   Bottom dark band  → text readable
+   Middle translucent → photo still visible
+   Top subtle dark   → sky depth
+*/
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(4, 18, 8, 1) 0%,    /* Solid dark to blend into next section */
+    rgba(4, 18, 8, 0.88) 15%,
+    rgba(4, 18, 8, 0.48) 35%,
+    rgba(4, 18, 8, 0.18) 60%,
+    rgba(4, 18, 8, 0.32) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Content layer ── */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Force to bottom */
+  padding-bottom: 5vh; /* Distance from bottom - very low */
+  text-align: center;
+  color: white;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 0 var(--space-md);
+}
+
+/* ── Title ── */
+.hero-title-wrap {
+  will-change: opacity, transform;
+}
+
+.hero-title {
+  color: white;
+  font-family: var(--font-family-royal);
+  text-transform: uppercase;
+  font-weight: 500;
+  /* Make minimum font size small enough to fit on one line on small phones */
+  font-size: clamp(1.2rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.05em; /* Premium spacing */
+  white-space: nowrap; /* Force one line */
+}
+
+/* Rising Text Reveal Effect */
+.word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.15em; /* Prevent cutting off descenders */
+  margin-right: 0.25em;   /* Space between words */
+  vertical-align: bottom;
+}
+
+.word-wrap:last-child {
+  margin-right: 0;
+}
+
+.word {
+  display: inline-block;
+  transform: translateY(120%);
+  opacity: 0;
+  animation: revealWord 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.word-wrap:nth-child(1) .word { animation-delay: 2.6s; }
+.word-wrap:nth-child(2) .word { animation-delay: 2.8s; }
+.word-wrap:nth-child(3) .word { animation-delay: 3.0s; }
+.word-wrap:nth-child(4) .word { animation-delay: 3.2s; }
+
+@keyframes revealWord {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ── Subtitle ── */
+.hero-subtitle-wrap {
+  will-change: opacity, transform;
+}
+
+.hero-subtitle {
+  font-size: clamp(0.82rem, 3.5vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.93;
+  max-width: 580px;
+  margin: 0 auto;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.95);
+  /* Use max-width trick to force 2 lines if possible */
+  width: 100%;
+}
+
+/* ── Button ── */
+.hero-btn-wrap {
+  will-change: opacity, transform;
+}
+
+.hero-btn {
+  font-size: clamp(0.88rem, 2vw, 1.05rem);
+  padding: 0.85rem 2.2rem;
+}
+
+/* removed break classes */
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+
+@media (min-width: 480px) {
+  .hero-title {
+    font-size: clamp(1.5rem, 5vw, 3.5rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: clamp(2.6rem, 4vw, 4.5rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, 1.7vw, 1.25rem);
+    white-space: nowrap; /* Force one line on desktop */
+    max-width: none;
+  }
+  .hero-content {
+    justify-content: flex-end; /* Keep it at the bottom */
+    padding-bottom: 5vh; /* Keep it very low on desktop too */
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: clamp(3rem, 3.5vw, 4rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  }
+}
+
+/* ── Scroll Arrow ── */
+.scroll-arrow-wrap {
+  position: absolute;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  will-change: opacity, transform;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  /* Wait 3.8s for title to reveal, then fade in and bounce */
+  animation: fadeInArrow 1s forwards 3.8s, bounceArrow 2s infinite 4.8s;
+}
+
+.scroll-indicator span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.7;
+  color: white;
+}
+
+.scroll-indicator i {
+  font-size: 1.2rem;
+  color: var(--color-sunset-400); /* Slightly lighter sunset for better contrast on dark bg */
+}
+
+@keyframes fadeInArrow {
+  to { opacity: 1; }
+}
+
+@keyframes bounceArrow {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}

@@ -1,0 +1,345 @@
+.accommodations-section {
+  position: relative;
+  padding: var(--space-xl) 0;
+  background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1920&q=80'); /* Dark elegant interior */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+}
+
+/* Dark overlay to ensure text readability and create the moody "inside" vibe */
+.accommodations-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(4, 18, 8, 1) 0%, rgba(4, 18, 8, 0.85) 30%, rgba(4, 18, 8, 0.95) 100%);
+  z-index: 1;
+}
+
+.accommodations-section > .container {
+  position: relative;
+  z-index: 2;
+}
+
+.accommodations-header {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.accommodations-header .editorial-heading {
+  color: white;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  margin-bottom: var(--space-sm);
+}
+
+.accommodations-header .editorial-sub {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0;
+}
+
+.luxury-rooms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* White Cards */
+.luxury-room-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Strong shadow for contrast against dark background */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.luxury-room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+}
+
+@media (min-width: 992px) {
+  .luxury-room-card {
+    flex-direction: row;
+    min-height: 350px; /* Reduced from 450px */
+  }
+  
+  .luxury-room-card.reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.room-carousel-wrapper {
+  flex: none;
+  height: 280px; /* Fixed height for mobile so it never changes size */
+  overflow: hidden;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .room-carousel-wrapper {
+    flex: 0 0 55%;
+    height: auto;
+    align-self: stretch; /* Matches the height dictated by the text content and min-height */
+  }
+}
+
+.room-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease, opacity 0.4s ease;
+}
+
+.luxury-room-card:hover .room-image {
+  transform: scale(1.05);
+}
+
+/* Carousel Controls */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: white;
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 1; /* Default visible */
+}
+
+.carousel-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-emerald-900);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.carousel-btn.maximize {
+  top: 10px;
+  right: 10px;
+  transform: none;
+}
+
+.carousel-btn.maximize:hover {
+  transform: scale(1.1);
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+  transform: scale(1.3);
+}
+
+.room-details {
+  flex: 1;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+
+@media (min-width: 992px) {
+  .room-details {
+    padding: var(--space-md); /* Reduced padding to fit smaller height */
+  }
+}
+
+.room-details h3 {
+  font-size: 1.8rem; /* Reduced from var(--font-h2) */
+  color: var(--color-emerald-900);
+  margin-bottom: var(--space-xs);
+}
+
+.room-desc {
+  color: #555;
+  margin-bottom: var(--space-sm); /* Reduced margin */
+  line-height: 1.5; /* Tighter line height */
+  font-size: 0.95rem; /* Reduced font size */
+}
+
+.room-amenities {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-sm) 0; /* Reduced margin */
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Reduced gap */
+}
+
+.room-amenities li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-emerald-900);
+  font-weight: 500;
+  font-size: 0.9rem; /* Reduced font size */
+}
+
+.room-amenities i {
+  color: var(--color-sunset-500);
+  font-size: 1rem; /* Reduced icon size */
+  width: 20px;
+  text-align: center;
+}
+
+.room-price-book {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+@media (min-width: 576px) {
+  .room-price-book {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.price {
+  color: #666;
+  font-size: 0.85rem; /* Reduced */
+}
+
+.price span {
+  font-size: 1.25rem; /* Reduced from 1.4rem */
+  font-weight: 600;
+  color: var(--color-emerald-900);
+}
+
+/* Lightbox Overlay */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 18, 8, 0.98);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-header {
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 3010;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-close:hover {
+  color: var(--color-sunset-500);
+  transform: scale(1.1);
+}
+
+.lightbox-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: var(--space-md);
+  overflow: hidden;
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.lightbox-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+}
+
+.lightbox-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-btn.prev { left: 20px; }
+.lightbox-btn.next { right: 20px; }
+
+.lightbox-indicators {
+  padding: var(--space-md);
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}

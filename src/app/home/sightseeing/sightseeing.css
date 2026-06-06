@@ -1,0 +1,116 @@
+/* ── Scroll Container (GSAP pins this) ── */
+.sight-scroll-container {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-xl);
+  background: var(--color-sand-50);
+}
+
+.sight-sticky-wrap {
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sight-inner {
+  width: 100%;
+}
+
+/* ── Section Header ── */
+.sight-header {
+  margin-bottom: var(--space-xl);
+}
+
+/* ── Track ── */
+.sight-track-wrap {
+  position: relative;
+}
+
+.sight-track {
+  display: flex;
+  gap: var(--space-md);
+  width: max-content;
+  padding-left: max(var(--space-md), calc((100vw - 1200px) / 2 + var(--space-md)));
+  padding-right: var(--space-xl);
+  will-change: transform;
+}
+
+/* ── Cards ── */
+.sight-card {
+  flex: 0 0 auto;
+  height: clamp(320px, 55vh, 460px);
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.sight-card:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+}
+
+.sight-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.sight-card:hover img {
+  transform: scale(1.06);
+}
+
+.sight-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.1) 60%, transparent);
+  padding: var(--space-lg) var(--space-md) var(--space-md);
+  color: white;
+}
+
+.sight-distance {
+  display: inline-block;
+  background: var(--color-emerald-500);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sight-overlay h3 {
+  color: white;
+  margin-bottom: 4px;
+  font-size: 1.2rem;
+}
+
+.sight-overlay p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .sight-card {
+    height: clamp(340px, 60vh, 440px);
+  }
+
+  .sight-track {
+    gap: var(--space-sm);
+    padding-left: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .sight-card {
+    height: clamp(300px, 55vh, 380px);
+  }
+}

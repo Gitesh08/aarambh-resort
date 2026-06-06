@@ -1,0 +1,63 @@
+.amenities-section {
+  padding: var(--space-xl) 0;
+  background-color: white; /* Clean contrast from other sections */
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .amenities-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .amenities-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.amenity-card {
+  text-align: center;
+  padding: var(--space-md);
+  border-radius: 12px;
+  background: var(--color-sand-50);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: default;
+  border: 1px solid transparent;
+}
+
+.amenity-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+  background: white;
+  border: 1px solid var(--color-sand-200);
+}
+
+.amenity-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+  color: var(--color-emerald-700);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.amenity-card:hover .amenity-icon {
+  transform: scale(1.1);
+}
+
+.amenity-card h4 {
+  font-size: 1rem;
+  color: var(--color-emerald-900);
+  margin-bottom: 0;
+}

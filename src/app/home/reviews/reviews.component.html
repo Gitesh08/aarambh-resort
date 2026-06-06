@@ -1,0 +1,40 @@
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-split-layout">
+      
+      <!-- Left: Sticky Header -->
+      <div class="reviews-header-col">
+        <div class="sticky-wrapper" appScrollReveal>
+          <div class="reveal-wrap delay-1"><h2 class="editorial-heading reveal-text">Guest<br>Stories</h2></div>
+          <div class="reveal-wrap delay-2" style="display: block;"><p class="editorial-sub reveal-text">Experience Aarambh through the eyes of our visitors.</p></div>
+          
+          <div class="overall-rating fade-up delay-3">
+            <span class="rating-number">4.9</span>
+            <div class="rating-details">
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="rating-text">Based on 150+ Reviews</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Scrolling Reviews List -->
+      <div class="reviews-list-col">
+        <div class="editorial-review-card fade-up" *ngFor="let review of testimonials" appScrollReveal>
+          <div class="review-meta">
+            <div class="reviewer-info">
+              <span class="reviewer-name">{{ review.author }}</span>
+              <span class="review-platform">
+                <i [class]="review.platformIcon"></i> Verified on {{ review.platform }}
+              </span>
+            </div>
+          </div>
+          <p class="editorial-review-text">{{ review.text }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

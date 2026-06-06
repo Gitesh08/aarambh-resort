@@ -1,0 +1,33 @@
+<header class="header-container" [class.scrolled]="isScrolled()">
+  <div class="container nav-content">
+    <a href="#" class="logo-link">
+      <img src="logo.png" alt="Aarambh The Creek Breeze Resort" class="brand-logo">
+    </a>
+    
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#accommodations">Accommodations</a></li>
+        <li><a href="#dining">Dining</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+      <button class="btn btn-primary" (click)="openBooking()">Book Now</button>
+    </nav>
+
+    <button class="mobile-toggle" [class.open]="isMobileMenuOpen()" (click)="toggleMobileMenu()" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" [class.open]="isMobileMenuOpen()">
+  <ul class="nav-links">
+    <li><a href="#about" (click)="toggleMobileMenu()">About</a></li>
+    <li><a href="#accommodations" (click)="toggleMobileMenu()">Accommodations</a></li>
+    <li><a href="#dining" (click)="toggleMobileMenu()">Dining</a></li>
+    <li><a href="#gallery" (click)="toggleMobileMenu()">Gallery</a></li>
+  </ul>
+  <button class="btn btn-primary" (click)="openBookingMobile()">Book Now</button>
+</div>

@@ -1,0 +1,28 @@
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <div class="section-header gallery-header" appScrollReveal>
+      <div class="reveal-wrap delay-1"><h2 class="editorial-heading reveal-text">Moments at Aarambh</h2></div>
+      <div class="reveal-wrap delay-2" style="display: block;"><p class="editorial-sub reveal-text">A glimpse into our serene coastal luxury.</p></div>
+    </div>
+
+    <!-- Asymmetric Collage Grid -->
+    <div class="collage-grid">
+      <div class="collage-item scale-up" *ngFor="let img of images; let i = index" [ngClass]="'item-' + i" (click)="openLightbox(i)" appScrollReveal>
+        <img [src]="img" alt="Gallery image" loading="lazy">
+        <div class="collage-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" [class.active]="isLightboxOpen()">
+  <div class="lightbox-header">
+    <button class="btn-close" (click)="closeLightbox()">&times;</button>
+  </div>
+  <div class="lightbox-scroll" #lightboxScroll>
+    <div class="lightbox-slide" *ngFor="let img of images">
+      <img [src]="img" alt="Fullscreen gallery image" loading="lazy">
+    </div>
+  </div>
+</div>

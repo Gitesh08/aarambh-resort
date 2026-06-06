@@ -1,0 +1,68 @@
+<section class="faq-section" id="faq">
+  <div class="container faq-container">
+    <div class="section-header faq-section-header" appScrollReveal>
+      <div class="reveal-wrap delay-1"><h2 class="editorial-heading reveal-text">Frequently Asked Questions</h2></div>
+      <div class="reveal-wrap delay-2" style="display: block;"><p class="editorial-sub reveal-text">Everything you need to know before your visit.</p></div>
+    </div>
+
+    <div class="faq-list">
+      
+      <div class="faq-item fade-up delay-1" [class.open]="openIndex() === 0" appScrollReveal>
+        <button class="faq-header" (click)="toggle(0)" [attr.aria-expanded]="openIndex() === 0">
+          <span>What are the check-in and check-out timings?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body-wrapper">
+          <div class="faq-body">
+            <div class="faq-content">
+              Standard check-in time is 12:00 PM, and check-out is at 11:00 AM. If you require early check-in or late check-out, please let us know in advance, and we will do our best to accommodate based on availability.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1" [class.open]="openIndex() === 1" appScrollReveal>
+        <button class="faq-header" (click)="toggle(1)" [attr.aria-expanded]="openIndex() === 1">
+          <span>What is the capacity for group stays?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body-wrapper">
+          <div class="faq-body">
+            <div class="faq-content">
+              We are perfectly equipped to host large groups and events! Aarambh can comfortably accommodate approximately 40 guests for overnight stays across our premium rooms, and up to 60 guests for day outings or corporate events.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1" [class.open]="openIndex() === 2" appScrollReveal>
+        <button class="faq-header" (click)="toggle(2)" [attr.aria-expanded]="openIndex() === 2">
+          <span>How deep is the swimming pool? Is it safe?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body-wrapper">
+          <div class="faq-body">
+            <div class="faq-content">
+              Our 40ft swimming pool has a maximum depth of 4.9ft, making it generally safe for adults and older children. However, we do advise adult supervision for young children at all times.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1" [class.open]="openIndex() === 3" appScrollReveal>
+        <button class="faq-header" (click)="toggle(3)" [attr.aria-expanded]="openIndex() === 3">
+          <span>Do you have parking and power backup facilities?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body-wrapper">
+          <div class="faq-body">
+            <div class="faq-content">
+              Yes, absolutely! We provide secure, ample parking space for all our guests. We also have a robust generator power backup system to ensure your stay remains comfortable without any interruptions.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
