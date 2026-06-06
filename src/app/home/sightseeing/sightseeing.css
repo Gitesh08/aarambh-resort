@@ -33,7 +33,7 @@
   display: flex;
   gap: var(--space-md);
   width: max-content;
-  padding-left: max(var(--space-md), calc((100vw - 1200px) / 2 + var(--space-md)));
+  padding-left: max(var(--space-md), calc((100vw - 1400px) / 2 + var(--space-md)));
   padding-right: var(--space-xl);
   will-change: transform;
 }

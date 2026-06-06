@@ -45,7 +45,13 @@ export class SightseeingComponent implements AfterViewInit, OnDestroy {
           }
         });
 
-        return () => {};
+        // Robust fix for layout shifts (e.g., images loading above) causing incorrect pin positions
+        const ro = new ResizeObserver(() => ScrollTrigger.refresh());
+        ro.observe(document.body);
+
+        return () => {
+          ro.disconnect();
+        };
       });
     }
   }

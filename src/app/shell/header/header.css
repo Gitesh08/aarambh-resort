@@ -10,7 +10,7 @@
 
 .header-container.scrolled {
   padding: var(--space-sm) 0;
-  background-color: rgba(253, 251, 247, 0.40); /* Light sand background to pop logo */
+  background-color: rgba(255, 255, 255, 0.80);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border-bottom: 1px solid rgba(0,0,0,0.05);
