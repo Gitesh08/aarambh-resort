@@ -1,10 +1,13 @@
 /* ── Scroll Container (GSAP pins this) ── */
 .sight-scroll-container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   overflow: hidden;
   padding-block: var(--space-xl);
   background: var(--color-sand-50);
+  min-height: 100vh;
 }
 
 .sight-sticky-wrap {

@@ -14,11 +14,9 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.renderer.addClass(this.el.nativeElement, 'in-view');
-          // Optional: Unobserve after revealing to prevent repeated animations on scroll up
-          // this.observer?.unobserve(entry.target); 
-        } else {
-          // If we want it to animate every time it scrolls into view, remove the class when out of view
-          this.renderer.removeClass(this.el.nativeElement, 'in-view');
+          if (this.observer) {
+            this.observer.unobserve(entry.target);
+          }
         }
       });
     }, {

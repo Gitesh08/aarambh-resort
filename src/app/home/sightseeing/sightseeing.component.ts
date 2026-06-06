@@ -37,7 +37,7 @@ export class SightseeingComponent implements AfterViewInit, OnDestroy {
           ease: 'none',
           scrollTrigger: {
             trigger: section,
-            start: 'bottom bottom',
+            start: 'top top',
             end: () => `+=${getScrollAmount() * -1}`,
             pin: true,
             scrub: 1,

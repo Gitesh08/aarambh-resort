@@ -109,10 +109,10 @@
   animation: revealWord 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-.word-wrap:nth-child(1) .word { animation-delay: 2.6s; }
-.word-wrap:nth-child(2) .word { animation-delay: 2.8s; }
-.word-wrap:nth-child(3) .word { animation-delay: 3.0s; }
-.word-wrap:nth-child(4) .word { animation-delay: 3.2s; }
+.word-wrap:nth-child(1) .word { animation-delay: 0.8s; }
+.word-wrap:nth-child(2) .word { animation-delay: 1.0s; }
+.word-wrap:nth-child(3) .word { animation-delay: 1.2s; }
+.word-wrap:nth-child(4) .word { animation-delay: 1.4s; }
 
 @keyframes revealWord {
   0% {
@@ -195,7 +195,7 @@
 /* ── Scroll Arrow ── */
 .scroll-arrow-wrap {
   position: absolute;
-  bottom: 2vh;
+  bottom: 8vh;
   left: 50%;
   transform: translateX(-50%);
   will-change: opacity, transform;
@@ -207,8 +207,8 @@
   align-items: center;
   gap: 8px;
   opacity: 0;
-  /* Wait 3.8s for title to reveal, then fade in and bounce */
-  animation: fadeInArrow 1s forwards 3.8s, bounceArrow 2s infinite 4.8s;
+  /* Wait 1.6s for title to reveal, then fade in and bounce */
+  animation: fadeInArrow 1s forwards 1.6s, bounceArrow 2s infinite 2.6s;
 }
 
 .scroll-indicator span {
