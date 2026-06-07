@@ -1,6 +1,6 @@
-import { Component, inject, signal, effect, OnDestroy } from '@angular/core';
+import { Component, inject, signal, effect, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { UiStateService, BookingData } from '../../../core/services/ui-state.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 // @ts-ignore
@@ -17,6 +17,8 @@ export class BookingModalComponent implements OnDestroy {
   private uiState = inject(UiStateService);
   private sanitizer = inject(DomSanitizer);
   
+  @ViewChild('bookingForm') bookingForm!: NgForm;
+
   isOpen = this.uiState.isBookingModalOpen;
   currentStep = signal(1);
 
@@ -172,6 +174,16 @@ export class BookingModalComponent implements OnDestroy {
     return this.minDate;
   }
 
+  isDateInPast(dateString: string | undefined, compareTo?: string): boolean {
+    if (!dateString) return false;
+    const selected = new Date(dateString);
+    const min = new Date(compareTo || this.minDate);
+    // Strip time for accurate comparison
+    selected.setHours(0,0,0,0);
+    min.setHours(0,0,0,0);
+    return selected < min;
+  }
+
   isSubmitting = signal(false);
   cooldownRemaining = signal(0);
   private cooldownTimer: any;
@@ -211,6 +223,23 @@ export class BookingModalComponent implements OnDestroy {
   closeModal() {
     this.showDropdown = false;
     this.uiState.closeBookingModal();
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.localData = {
+      checkIn: '',
+      checkOut: '',
+      guests: 1,
+      roomType: 'The Aarambh Suite',
+      specialRequests: ''
+    };
+    if (this.bookingForm) {
+      this.bookingForm.resetForm(this.localData);
+    }
+    this.currentStep.set(1);
+    this.selectedCountry = this.countryCodes[0];
+    this.countryCode = this.selectedCountry.dial;
   }
 
   closeOnBackdrop() {

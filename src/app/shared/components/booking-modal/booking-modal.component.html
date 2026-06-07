@@ -19,11 +19,13 @@
           <div class="form-row">
             <div class="form-group">
               <label for="modal-checkIn">Check-in</label>
-              <input type="date" id="modal-checkIn" class="form-control" [min]="minDate" [(ngModel)]="localData.checkIn" name="checkIn" required #checkInField="ngModel">
+              <input type="date" id="modal-checkIn" class="form-control" [min]="minDate" [(ngModel)]="localData.checkIn" name="checkIn" required #checkInField="ngModel" [class.invalid]="isDateInPast(localData.checkIn)">
+              <div class="field-error" *ngIf="isDateInPast(localData.checkIn)">Check-in cannot be in the past.</div>
             </div>
             <div class="form-group">
               <label for="modal-checkOut">Check-out</label>
-              <input type="date" id="modal-checkOut" class="form-control" [min]="minCheckOutDate" [(ngModel)]="localData.checkOut" name="checkOut" required #checkOutField="ngModel">
+              <input type="date" id="modal-checkOut" class="form-control" [min]="minCheckOutDate" [(ngModel)]="localData.checkOut" name="checkOut" required #checkOutField="ngModel" [class.invalid]="isDateInPast(localData.checkOut, minCheckOutDate)">
+              <div class="field-error" *ngIf="isDateInPast(localData.checkOut, minCheckOutDate)">Check-out must be valid.</div>
             </div>
           </div>
           <div class="form-group">
@@ -104,7 +106,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" *ngIf="currentStep() > 1" (click)="prevStep()">Back</button>
           <div style="flex-grow: 1;"></div>
-          <button type="button" class="btn btn-primary" *ngIf="currentStep() < 3" (click)="nextStep()" [disabled]="(currentStep() === 1 && (checkInField.invalid || checkOutField.invalid)) || (currentStep() === 2 && !localData.roomType)">Continue</button>
+          <button type="button" class="btn btn-primary" *ngIf="currentStep() < 3" (click)="nextStep()" [disabled]="(currentStep() === 1 && (checkInField.invalid || checkOutField.invalid || isDateInPast(localData.checkIn) || isDateInPast(localData.checkOut, minCheckOutDate))) || (currentStep() === 2 && !localData.roomType)">Continue</button>
           
           <button type="submit" class="btn btn-whatsapp" *ngIf="currentStep() === 3" [disabled]="cooldownRemaining() > 0 || bookingForm.invalid">
             <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;" *ngIf="cooldownRemaining() === 0"></i>
