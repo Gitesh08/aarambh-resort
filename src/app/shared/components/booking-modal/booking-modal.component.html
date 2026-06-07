@@ -19,12 +19,12 @@
           <div class="form-row">
             <div class="form-group">
               <label for="modal-checkIn">Check-in</label>
-              <input type="date" id="modal-checkIn" class="form-control" [min]="minDate" [(ngModel)]="localData.checkIn" name="checkIn" required #checkInField="ngModel" [class.invalid]="isDateInPast(localData.checkIn)">
+              <input type="date" id="modal-checkIn" class="form-control" [min]="minDate" [attr.min]="minDate" [ngModel]="localData.checkIn" (ngModelChange)="onCheckInChange($event)" name="checkIn" required #checkInField="ngModel" [class.invalid]="isDateInPast(localData.checkIn)">
               <div class="field-error" *ngIf="isDateInPast(localData.checkIn)">Check-in cannot be in the past.</div>
             </div>
             <div class="form-group">
               <label for="modal-checkOut">Check-out</label>
-              <input type="date" id="modal-checkOut" class="form-control" [min]="minCheckOutDate" [(ngModel)]="localData.checkOut" name="checkOut" required #checkOutField="ngModel" [class.invalid]="isDateInPast(localData.checkOut, minCheckOutDate)">
+              <input type="date" id="modal-checkOut" class="form-control" [min]="minCheckOutDate" [attr.min]="minCheckOutDate" [ngModel]="localData.checkOut" (ngModelChange)="onCheckOutChange($event)" name="checkOut" required #checkOutField="ngModel" [class.invalid]="isDateInPast(localData.checkOut, minCheckOutDate)">
               <div class="field-error" *ngIf="isDateInPast(localData.checkOut, minCheckOutDate)">Check-out must be valid.</div>
             </div>
           </div>

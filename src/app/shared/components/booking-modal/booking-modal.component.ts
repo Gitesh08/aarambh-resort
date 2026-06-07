@@ -184,6 +184,27 @@ export class BookingModalComponent implements OnDestroy {
     return selected < min;
   }
 
+  onCheckInChange(value: string) {
+    if (this.isDateInPast(value)) {
+        // Forcefully reset if Safari bypasses the native min attribute
+        setTimeout(() => this.localData.checkIn = '', 0);
+    } else {
+        this.localData.checkIn = value;
+        // Auto-correct checkout if it's now before check-in
+        if (this.localData.checkOut && this.isDateInPast(this.localData.checkOut, value)) {
+            this.localData.checkOut = '';
+        }
+    }
+  }
+
+  onCheckOutChange(value: string) {
+    if (this.isDateInPast(value, this.minCheckOutDate)) {
+        setTimeout(() => this.localData.checkOut = '', 0);
+    } else {
+        this.localData.checkOut = value;
+    }
+  }
+
   isSubmitting = signal(false);
   cooldownRemaining = signal(0);
   private cooldownTimer: any;
