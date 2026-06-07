@@ -2,77 +2,114 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     
     <div class="modal-header">
-      <h2>Book Your Experience</h2>
-      <button class="btn-close" (click)="closeModal()" aria-label="Close modal">&times;</button>
+      <div>
+        <h2>Book Your Stay</h2>
+        <p class="subtitle">Complete the details below to check availability.</p>
+      </div>
+      <button class="btn-close" (click)="closeModal()" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
     </div>
 
     <div class="modal-body">
-      <div class="step-indicator">
-        <div class="step" [class.active]="currentStep() === 1" [class.completed]="currentStep() > 1">1</div>
-        <div class="step" [class.active]="currentStep() === 2" [class.completed]="currentStep() > 2">2</div>
-        <div class="step" [class.active]="currentStep() === 3" [class.completed]="currentStep() > 3">3</div>
-      </div>
-
-      <form (ngSubmit)="submitBooking()">
+      <form (ngSubmit)="submitBooking()" #bookingForm="ngForm">
         
         <!-- Step 1: Dates -->
         <div class="form-step" [class.active]="currentStep() === 1">
-          <h3 style="margin-bottom: var(--space-md);">Stay Details</h3>
-          <div class="form-group">
-            <label for="modal-checkIn">Check-in</label>
-            <input type="date" id="modal-checkIn" class="form-control" [(ngModel)]="localData.checkIn" name="checkIn" required>
-          </div>
-          <div class="form-group">
-            <label for="modal-checkOut">Check-out</label>
-            <input type="date" id="modal-checkOut" class="form-control" [(ngModel)]="localData.checkOut" name="checkOut" required>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="modal-checkIn">Check-in</label>
+              <input type="date" id="modal-checkIn" class="form-control" [min]="minDate" [(ngModel)]="localData.checkIn" name="checkIn" required #checkInField="ngModel">
+            </div>
+            <div class="form-group">
+              <label for="modal-checkOut">Check-out</label>
+              <input type="date" id="modal-checkOut" class="form-control" [min]="minCheckOutDate" [(ngModel)]="localData.checkOut" name="checkOut" required #checkOutField="ngModel">
+            </div>
           </div>
           <div class="form-group">
             <label for="modal-guests">Guests</label>
-            <input type="number" id="modal-guests" class="form-control" min="1" [(ngModel)]="localData.guests" name="guests" required>
+            <div class="guest-counter">
+              <button type="button" class="btn-counter" (click)="localData.guests = localData.guests > 1 ? localData.guests - 1 : 1">-</button>
+              <input type="number" id="modal-guests" class="form-control text-center" min="1" [(ngModel)]="localData.guests" name="guests" readonly required>
+              <button type="button" class="btn-counter" (click)="localData.guests = localData.guests + 1">+</button>
+            </div>
           </div>
         </div>
 
         <!-- Step 2: Room Type -->
         <div class="form-step" [class.active]="currentStep() === 2">
-          <h3 style="margin-bottom: var(--space-md);">Select Room</h3>
           <div class="room-options">
-            <div class="room-card" [class.selected]="localData.roomType === 'standard'" (click)="selectRoom('standard')">
-              <h4>Standard Room</h4>
-              <p>Cozy & Minimal</p>
+            <div class="room-card" [class.selected]="localData.roomType === 'The Aarambh Suite'" (click)="selectRoom('The Aarambh Suite')">
+              <img src="aarambh-suite-1.JPG" alt="The Aarambh Suite" class="room-card-img">
+              <h4>The Aarambh Suite</h4>
+              <p>Ideal for couples</p>
             </div>
-            <div class="room-card" [class.selected]="localData.roomType === 'deluxe'" (click)="selectRoom('deluxe')">
-              <h4>Deluxe Suite</h4>
-              <p>Ocean View</p>
-            </div>
-            <div class="room-card" [class.selected]="localData.roomType === 'villa'" (click)="selectRoom('villa')">
-              <h4>Private Villa</h4>
-              <p>Ultimate Luxury</p>
+            <div class="room-card" [class.selected]="localData.roomType === 'The Grand Duplex'" (click)="selectRoom('The Grand Duplex')">
+              <img src="grand-duplex-1.JPG" alt="The Grand Duplex" class="room-card-img">
+              <h4>The Grand Duplex</h4>
+              <p>Perfect for families</p>
             </div>
           </div>
         </div>
 
         <!-- Step 3: Contact Info -->
         <div class="form-step" [class.active]="currentStep() === 3">
-          <h3 style="margin-bottom: var(--space-md);">Your Details</h3>
           <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" id="name" class="form-control" [(ngModel)]="localData.name" name="name" required>
+            <input type="text" id="name" class="form-control" placeholder="Rahul Sharma" [(ngModel)]="localData.name" name="name" required minlength="2" maxlength="50" #nameField="ngModel" [class.invalid]="nameField.invalid && nameField.touched">
+            <div class="field-error" *ngIf="nameField.invalid && nameField.touched">
+              <span *ngIf="nameField.errors?.['required']">Name is required.</span>
+              <span *ngIf="nameField.errors?.['minlength']">Name must be at least 2 characters.</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">WhatsApp Number</label>
+              <div class="phone-field" [class.invalid]="phoneField.invalid && phoneField.touched">
+                  <!-- Custom country selector trigger -->
+                  <button type="button" class="country-trigger" (click)="showDropdown = !showDropdown">
+                      <span class="flag-icon" [innerHTML]="selectedCountry.flag"></span>
+                      <span class="dial-code">{{ selectedCountry.dial }}</span>
+                      <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor" style="margin-left: 4px;"><path d="M0 0l5 6 5-6z"/></svg>
+                  </button>
+                  <!-- Dropdown list -->
+                  <div class="country-dropdown" *ngIf="showDropdown">
+                      <div class="country-option" *ngFor="let c of countryCodes" (click)="selectCountry(c)">
+                          <span class="flag-icon" [innerHTML]="c.flag"></span>
+                          <span class="country-name">{{ c.name }}</span>
+                          <span class="country-dial">{{ c.dial }}</span>
+                      </div>
+                  </div>
+                  <input type="tel" id="phone" class="form-control phone-number-input" name="phone" [(ngModel)]="localData.phone" required pattern="^[0-9]{10}$" maxlength="10" #phoneField="ngModel">
+              </div>
+              <div class="field-error" *ngIf="phoneField.invalid && phoneField.touched">
+                <span *ngIf="phoneField.errors?.['required']">Phone is required.</span>
+                <span *ngIf="phoneField.errors?.['pattern']">Please enter exactly 10 digits.</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email (Optional)</label>
+              <input type="email" id="email" class="form-control" placeholder="rahul@example.com" [(ngModel)]="localData.email" name="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxlength="100" #emailField="ngModel" [class.invalid]="emailField.invalid && emailField.touched">
+              <div class="field-error" *ngIf="emailField.invalid && emailField.touched">
+                <span *ngIf="emailField.errors?.['pattern']">Please enter a valid email address.</span>
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="form-control" [(ngModel)]="localData.email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" class="form-control" [(ngModel)]="localData.phone" name="phone" required>
+            <label for="specialRequests">Specific Requirements</label>
+            <textarea id="specialRequests" class="form-control" rows="3" placeholder="Any special requests or questions?" [(ngModel)]="localData.specialRequests" name="specialRequests" maxlength="500"></textarea>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn" *ngIf="currentStep() > 1" (click)="prevStep()">Back</button>
+          <button type="button" class="btn btn-outline" *ngIf="currentStep() > 1" (click)="prevStep()">Back</button>
           <div style="flex-grow: 1;"></div>
-          <button type="button" class="btn btn-primary" *ngIf="currentStep() < 3" (click)="nextStep()">Next Step</button>
-          <button type="submit" class="btn btn-primary" *ngIf="currentStep() === 3">Submit Inquiry</button>
+          <button type="button" class="btn btn-primary" *ngIf="currentStep() < 3" (click)="nextStep()" [disabled]="(currentStep() === 1 && (checkInField.invalid || checkOutField.invalid)) || (currentStep() === 2 && !localData.roomType)">Continue</button>
+          
+          <button type="submit" class="btn btn-whatsapp" *ngIf="currentStep() === 3" [disabled]="cooldownRemaining() > 0 || bookingForm.invalid">
+            <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;" *ngIf="cooldownRemaining() === 0"></i>
+            {{ cooldownRemaining() > 0 ? 'Wait ' + cooldownRemaining() + 's' : 'Send' }}
+          </button>
         </div>
       </form>
 

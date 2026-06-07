@@ -8,6 +8,7 @@ export interface BookingData {
   name?: string;
   email?: string;
   phone?: string;
+  specialRequests?: string;
 }
 
 @Injectable({
